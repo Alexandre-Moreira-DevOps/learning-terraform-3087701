@@ -1,0 +1,42 @@
+
+name: CI
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+   runs-on: ubuntu-latest
+   steps:
+     - name: Run a one-line script
+       run: echo Hello, world!
+
+      
+  deploy-pip:
+   runs-on: ubuntu-latest
+   environment:
+     name: pip
+     url: 'alexandremoreira.com'
+   needs: build
+   steps:
+     - name: Run a one-line script
+       run: echo Deploy pip
+
+  deploy-hmg:
+   runs-on: ubuntu-latest
+   environment:
+     name: hmg
+     url: 'alexandremoreira.com'
+   needs: deploy-pip
+   steps:
+     - name: Run a one-line script
+       run: echo Deploy hmg
+
+  deploy-prd:
+   runs-on: ubuntu-latest
+   environment:
+     name: prd
+     url: 'alexandremoreira.com'
+   needs: deploy-hmg
+   steps:
+     - name: Run a one-line script
+       run: echo Deploy prd
